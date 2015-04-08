@@ -14,6 +14,7 @@
     JTCircleView *circleView;
     UILabel *textLabel;
     JTCircleView *dotView;
+    JTCircleView *itemView;
     
     BOOL isSelected;
     
@@ -80,6 +81,11 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
         [self addSubview:dotView];
         dotView.hidden = YES;
     }
+    {
+        itemView = [JTCircleView new];
+        [self addSubview:dotView];
+        itemView.hidden = YES;
+    }
     
     {
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouch)];
@@ -123,6 +129,10 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
     dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeCircle / 2 - sizeDot / 2);
     dotView.layer.cornerRadius = sizeDot / 2.;
+    
+    itemView.frame = CGRectMake(0, 0, 20, 20);
+    itemView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeCircle / 2 - sizeDot / 2);
+    itemView.layer.cornerRadius = sizeDot / 2.;
 }
 
 - (void)setDate:(NSDate *)date
@@ -205,11 +215,13 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorSelected];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelected];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelected];
+            itemView.color = [UIColor purpleColor];
         }
         else{
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorSelectedOtherMonth];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelectedOtherMonth];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelectedOtherMonth];
+            itemView.color = [UIColor orangeColor];
         }
         
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
@@ -260,6 +272,12 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 
 - (void)reloadData
 {
+    NSDictionary *items = [self.calendarManager.dataCache HaveItems:self.date];
+    NSLog(@"dic: @%", items);
+//    if ([items objectForKey:@"sad"]) {
+//        
+//    }
+
     dotView.hidden = ![self.calendarManager.dataCache haveEvent:self.date];
     
     BOOL selected = [self isSameDate:[self.calendarManager currentDateSelected]];

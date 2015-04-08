@@ -92,6 +92,26 @@
     return NO;
 }
 
+- (NSDictionary *)HaveItems:(NSDate *)date
+{
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    return eventsByDate[key];
+}
+
+- (BOOL)calendarHaveDates:(JTCalendar *)calendar date:(NSDate *)date
+{
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+        return YES;
+    }
+    
+    NSLog(@"Value of hello = %@", eventsByDate);
+    
+    return NO;
+}
+
 - (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
@@ -168,6 +188,7 @@
         }
              
         [eventsByDate[key] addObject:randomDate];
+        [eventsByDate[key] addObject:@"lol"];
     }
 }
 

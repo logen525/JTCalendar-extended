@@ -15,5 +15,6 @@
 
 - (void)reloadData;
 - (BOOL)haveEvent:(NSDate *)date;
+- (NSDictionary *)HaveItems:(NSDate *)date;
 
 @end

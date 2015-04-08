@@ -61,4 +61,18 @@
     return haveEvent;
 }
 
+- (NSMutableArray *)HaveItems:(NSDate *)date
+{
+    NSDictionary *items;
+    items = [self.calendarManager.dataSource HaveItems:date];
+    
+    if(!items){
+//        haveEvent = [events[key] boolValue];
+//        items = [self.calendarManager.dataSource HaveItems:date];
+    }
+    
+    return items;
+}
+
+
 @end
