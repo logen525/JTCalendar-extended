@@ -95,8 +95,8 @@
 - (NSDictionary *)HaveItems:(NSDate *)date
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
-    
-    return eventsByDate[key];
+    NSDictionary *allItems = eventsByDate[key];
+    return allItems;
 }
 
 - (BOOL)calendarHaveDates:(JTCalendar *)calendar date:(NSDate *)date
@@ -186,9 +186,20 @@
         if(!eventsByDate[key]){
             eventsByDate[key] = [NSMutableArray new];
         }
-             
+        BOOL period = YES;
+        BOOL doctorVisit = YES;
+        BOOL medicine = YES;
+        BOOL sex = YES;
+        
+        NSMutableDictionary *dayItems = [[NSMutableDictionary alloc] init];
+        [dayItems setObject:@"sad" forKey:@"feelings"];
+        [dayItems setObject:[NSNumber numberWithBool:period] forKey:@"period"];
+        [dayItems setObject:[NSNumber numberWithBool:doctorVisit] forKey:@"doctorVisit"];
+        [dayItems setObject:[NSNumber numberWithBool:medicine] forKey:@"medicine"];
+        [dayItems setObject:[NSNumber numberWithBool:sex] forKey:@"sex"];
+        
         [eventsByDate[key] addObject:randomDate];
-        [eventsByDate[key] addObject:@"lol"];
+        [eventsByDate[key] addObject:dayItems];
     }
 }
 

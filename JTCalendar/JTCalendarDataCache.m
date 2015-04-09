@@ -61,7 +61,7 @@
     return haveEvent;
 }
 
-- (NSMutableArray *)HaveItems:(NSDate *)date
+- (NSDictionary *)HaveItems:(NSDate *)date
 {
     NSDictionary *items;
     items = [self.calendarManager.dataSource HaveItems:date];

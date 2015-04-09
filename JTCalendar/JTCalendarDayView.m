@@ -272,9 +272,21 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 
 - (void)reloadData
 {
-    NSDictionary *items = [self.calendarManager.dataCache HaveItems:self.date];
-    NSLog(@"dic: @%", items);
-//    if ([items objectForKey:@"sad"]) {
+    NSArray * values = [self.calendarManager.dataCache HaveItems:self.date];
+    
+    if (values) {
+        NSLog(@"dic: %@", [values objectAtIndex:1]);
+    }
+//    NSArray *values;
+    
+//    id val = nil;
+//    if (items) {
+//         values = [items allValues];
+//    }
+    
+//    if ([values count] != 0) {
+//        val = [values objectAtIndex:0];
+//        NSLog(@"dic: %@", val);
 //        
 //    }
 
