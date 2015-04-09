@@ -15,6 +15,10 @@
     UILabel *textLabel;
     JTCircleView *dotView;
     JTCircleView *itemView;
+    JTCircleView *doctorView;
+    JTCircleView *medicineView;
+    JTCircleView *periodView;
+    JTCircleView *intercourseView;
     
     BOOL isSelected;
     
@@ -83,8 +87,28 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     }
     {
         itemView = [JTCircleView new];
-        [self addSubview:dotView];
+        [self addSubview:itemView];
         itemView.hidden = YES;
+    }
+    {
+        doctorView = [JTCircleView new];
+        [self addSubview:doctorView];
+        doctorView.hidden = YES;
+    }
+    {
+        medicineView = [JTCircleView new];
+        [self addSubview:medicineView];
+        medicineView.hidden = YES;
+    }
+    {
+        intercourseView = [JTCircleView new];
+        [self addSubview:intercourseView];
+        intercourseView.hidden = YES;
+    }
+    {
+        periodView = [JTCircleView new];
+        [self addSubview:periodView];
+        periodView.hidden = YES;
     }
     
     {
@@ -131,8 +155,10 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     dotView.layer.cornerRadius = sizeDot / 2.;
     
     itemView.frame = CGRectMake(0, 0, 20, 20);
-    itemView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeCircle / 2 - sizeDot / 2);
-    itemView.layer.cornerRadius = sizeDot / 2.;
+    doctorView.frame = CGRectMake(self.frame.size.width - 20, 0, 10, 10);
+    medicineView.frame = CGRectMake(0, self.frame.size.height - 20, 10, 10);
+    intercourseView.frame = CGRectMake(self.frame.size.width /2, self.frame.size.width /2, 10, 10);
+    periodView.frame = CGRectMake(40, 40, 20, 20);
 }
 
 - (void)setDate:(NSDate *)date
@@ -216,12 +242,20 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelected];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelected];
             itemView.color = [UIColor purpleColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
         else{
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorSelectedOtherMonth];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorSelectedOtherMonth];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelectedOtherMonth];
             itemView.color = [UIColor orangeColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
         
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
@@ -232,21 +266,41 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorToday];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorToday];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorToday];
+            itemView.color = [UIColor purpleColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
         else{
             circleView.color = [self.calendarManager.calendarAppearance dayCircleColorTodayOtherMonth];
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorTodayOtherMonth];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorTodayOtherMonth];
+            itemView.color = [UIColor purpleColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
     }
     else{
         if(!self.isOtherMonth){
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColor];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColor];
+            itemView.color = [UIColor purpleColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
         else{
             textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorOtherMonth];
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorOtherMonth];
+            itemView.color = [UIColor purpleColor];
+            doctorView.color = [UIColor purpleColor];
+            medicineView.color = [UIColor purpleColor];
+            intercourseView.color = [UIColor purpleColor];
+            periodView.color = [UIColor purpleColor];
         }
         
         opacity = 0.;
@@ -274,21 +328,29 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 {
     NSArray * values = [self.calendarManager.dataCache HaveItems:self.date];
     
-    if (values) {
+    if ([self.calendarManager.dataCache haveEvent:self.date]) {
         NSLog(@"dic: %@", [values objectAtIndex:1]);
+        itemView.hidden = NO;
+        UIImageView *image = [[UIImageView alloc] init];
+        image.image = [UIImage imageNamed:@";)"];
+        image.frame = CGRectMake(0, 0, 20, 20);
+        [itemView addSubview:image];
+        
+        intercourseView.hidden = NO;
+        NSLog(@"dic: %@", [values objectAtIndex:1]);
+        UIImageView *imageHeart = [[UIImageView alloc] init];
+        imageHeart.image = [UIImage imageNamed:@"icnrelaciones"];
+        imageHeart.frame = CGRectMake(0, 0, 20, 20);
+        [intercourseView addSubview:imageHeart];
+        
+//        doctorView.hidden = NO;
+//        medicineView.hidden = NO;
+//        intercourseView.hidden = NO;
+//        periodView.hidden = NO;
+    } else {
+        intercourseView.hidden = YES;
+        itemView.hidden = YES;
     }
-//    NSArray *values;
-    
-//    id val = nil;
-//    if (items) {
-//         values = [items allValues];
-//    }
-    
-//    if ([values count] != 0) {
-//        val = [values objectAtIndex:0];
-//        NSLog(@"dic: %@", val);
-//        
-//    }
 
     dotView.hidden = ![self.calendarManager.dataCache haveEvent:self.date];
     
